@@ -1,0 +1,42 @@
+# Project: Proyecto1
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = solitario_private.res
+OBJ  = baraja.o graficos.o main.o tapete.o $(RES)
+LINKOBJ  = baraja.o graficos.o main.o tapete.o $(RES)
+LIBS =  -mwindows -lwinmm  
+INCS = 
+CXXINCS = 
+BIN  = solitario.exe
+CXXFLAGS = $(CXXINCS)   -fshort-double
+CFLAGS = $(INCS)   -fshort-double
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before solitario.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "solitario.exe" $(LIBS)
+
+baraja.o: baraja.cpp
+	$(CPP) -c baraja.cpp -o baraja.o $(CXXFLAGS)
+
+graficos.o: graficos.cpp
+	$(CPP) -c graficos.cpp -o graficos.o $(CXXFLAGS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+tapete.o: tapete.cpp
+	$(CPP) -c tapete.cpp -o tapete.o $(CXXFLAGS)
+
+solitario_private.res: solitario_private.rc juego.rc 
+	$(WINDRES) -i solitario_private.rc --input-format=rc -o solitario_private.res -O coff 
